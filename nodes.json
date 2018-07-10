@@ -1,0 +1,19 @@
+{
+  "nodes": {
+    "af.vagrant": {
+      ":ip": "10.20.1.8",
+      ":box": "ubuntu/xenial64",
+      "ports": [
+        {
+          ":host": "5000",
+          ":guest": "5000",
+          ":id": "flask"
+        }
+      ],
+      ":memory": 1024,
+      ":bootstrap": "bootstrap_af.vagrant.sh",
+      "mounts": [
+      ]
+    }
+  }
+}
