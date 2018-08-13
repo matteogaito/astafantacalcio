@@ -1,0 +1,33 @@
+{% extends "_layout.html" %}
+{% block head %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='circle-progress.js') }}"></script>
+</head>
+{% endblock %}
+{% block content %}
+<div class="text-center">
+    <h1> Loading... </h1>
+    <div id="circle">
+    </div>
+    <script>
+        $('#circle').circleProgress({
+            value: 0.75,
+            size: 100,
+            fill: {
+                gradient: ["red", "orange"]
+            }
+        });
+
+        var source = new EventSource("/fg/randombyrole/preparation");
+        source.onmessage = function (event) {
+            console.log(event.data)
+
+            if (event.data == 1) {
+                source.close()
+                window.location.replace("/fg/randombyrole/play");
+            }
+        }
+    </script>
+
+</div>
+{% endblock %}

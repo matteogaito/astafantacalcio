@@ -1,0 +1,26 @@
+{% extends "_layout.html" %}
+{% block title %}Requisiti Fantagazzetta {% endblock %}
+{% block content %}
+<div class="text-center">
+    <h1>Compila tutti i campi</h1>
+    <form action="" method="post" novalidate>
+        {{ form.hidden_tag() }}
+        <p>
+            <h3>{{ form.url_lega.label }}</h3>
+            <p> Inserisci il link della tua fantalega fantagazzetta </p>
+            {{ form.url_lega(size=100) }}
+            <p> Es: https://leghe.fantagazzetta.com/fantacalcio-pontassieve </p>
+        </p>
+        <p>
+            <h3> {{ form.password_lega.label }} </h3>
+            <p> Inserisci una password di 8 caratteri per recuperare l'asta in qualunque momento </p>
+            {{ form.password_lega(size=8) }}
+        </p>
+        <p>
+            <h3> {{ form.millions.label }}</h3>
+            {{ form.millions() }} 
+        </p>
+        <p>{{ form.submit() }}</p>
+    </form>
+</div>
+{% endblock %}

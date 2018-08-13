@@ -1,0 +1,8 @@
+.vagrant
+ubuntu-xenial-16.04-cloudimg-console.log
+*.pyc
+client_secret.json
+app.db
+prove
+af.log*
+bin_logs

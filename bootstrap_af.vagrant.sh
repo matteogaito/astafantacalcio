@@ -9,3 +9,6 @@ pip3 install -r /vagrant/requirements.txt
 apt-get install sqlite3 -y
 
 ln -s /vagrant/ /af
+
+apt-get install google-chrome-stable
+apt-get install redis-server

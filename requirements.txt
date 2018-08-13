@@ -1,2 +1,10 @@
 Flask
-
+flask_wtf
+flask-sqlalchemy
+sqlalchemy_utils
+Flask-Session
+selenium
+pyvirtualdisplay
+celery
+redis
+passlib

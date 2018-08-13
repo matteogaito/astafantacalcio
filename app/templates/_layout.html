@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- PAGE settings -->
+  <title>{% block title %}{% endblock %} - Aste Fantacalcio</title>
+  <meta name="description" content="Aste Fantacalcio">
+  <meta name="author" content="Matteo Gaito">
+  <!-- CSS dependencies -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css">
+  <link rel="stylesheet" href="/static/wireframe.css">
+
+</head>
+{% block head %}{% endblock %}
+<body>
+  <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-3">
+    <div class="container">
+      <button class="navbar-toggler navbar-toggler-right mx-auto" type="button" data-toggle="collapse" data-target="#navbar2SupportedContent" aria-controls="navbar2SupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>
+      <div class="collapse navbar-collapse text-center justify-content-between" id="navbar2SupportedContent">
+        <a class="p-2 text-secondary" href="/"><i class="fa fa-dot-circle-o fa-lg d-block pt-1"></i></a>
+        <a class="p-2 text-secondary" href="/contatti">Contatti</a>
+      </div>
+    </div>
+  </nav>
+  {% block content %}{% endblock %}
+  <!--
+  <footer>
+    <div class="container py-5">
+      <div class="row">
+        <div class="col-12 col-md"> <i class="fa fa-dot-circle-o fa-lg d-block pt-1"></i> <small class="d-block my-3 text-muted">© 2017-2018</small> </div>
+        <div class="col-6 col-md">
+          <h5><b>Features</b></h5>
+          <ul class="list-unstyled text-small">
+            <li>
+              <a class="text-muted" href="#">Cool stuff</a>
+            </li>
+            <li>
+              <a class="text-muted" href="#">Random feature</a>
+            </li>
+            <li>
+              <a class="text-muted" href="#">Team feature</a>
+            </li>
+            <li>
+              <a class="text-muted" href="#">Stuff for developers</a>
+            </li>
+            <li>
+              <a class="text-muted" href="#">Another one</a>
+            </li>
+            <li>
+              <a class="text-muted" href="#">Last time</a>
+            </li>
+          </ul>
+        </div>
+        <div class="col-6 col-md">
+          <h5><b>Resources</b></h5>
+          <ul class="list-unstyled text-small">
+            <li>
+              <a class="text-muted" href="#">Resource</a>
+            </li>
+            <li>
+              <a class="text-muted" href="#">Resource name</a>
+            </li>
+            <li>
+              <a class="text-muted" href="#">Another resource</a>
+            </li>
+            <li>
+              <a class="text-muted" href="#">Final resource</a>
+            </li>
+          </ul>
+        </div>
+        <div class="col-6 col-md">
+          <h5><b>Resources</b></h5>
+          <ul class="list-unstyled text-small">
+            <li>
+              <a class="text-muted" href="#">Business</a>
+            </li>
+            <li>
+              <a class="text-muted" href="#">Education</a>
+            </li>
+            <li>
+              <a class="text-muted" href="#">Government</a>
+            </li>
+            <li>
+              <a class="text-muted" href="#">Gaming</a>
+            </li>
+          </ul>
+        </div>
+        <div class="col-6 col-md">
+          <h5><b>About</b></h5>
+          <ul class="list-unstyled text-small">
+            <li>
+              <a class="text-muted" href="#">Team</a>
+            </li>
+            <li>
+              <a class="text-muted" href="#">Locations</a>
+            </li>
+            <li>
+              <a class="text-muted" href="#">Privacy</a>
+            </li>
+            <li>
+              <a class="text-muted" href="#">Terms</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </footer>
+  -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+
+</html>
