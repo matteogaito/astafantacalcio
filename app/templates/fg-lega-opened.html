@@ -3,10 +3,12 @@
 {% block content %}
 <div class="text-center">
     <h1> Recupera Asta </h2>
+    {% if request.args.get('password_ok') == "False" %}
+    <h2> PASSWORD ERRATA! Riprova </h2>
+    {% endif %}
+    <p> Un'asta è già in corso per la lega che hai inserito, inserisci la password per riprenderla dove hai iniziato
     <form action="" method="post" novalidate>
     {{ form.hidden_tag() }}
-    <p>
-    	<h3> {{ form.password_recupero.label }} </h3>
 	<p> Inserisci la password di recupero che hai impostato a inizio asta </p>
 	{{ form.password_recupero(size=8) }}
     <p>

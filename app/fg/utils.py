@@ -2,6 +2,8 @@
 
 from app import app,db
 import crypt,string,random
+import requests,re,os
+from urllib.request import urlopen
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 from pyvirtualdisplay import Display
@@ -53,12 +55,10 @@ def SaveTeams():
         app.logger.info("Added team {} to db".format(team))
     app.logger.info("Team downloaded")
 
-
 def PathIDGenerator(size=24, chars=string.ascii_uppercase + string.digits + string.ascii_lowercase):
     return ''.join(random.choice(chars) for _ in range(size))
 
 def PutLegaInfo(lega_infos):
-    print(lega_infos['name'])
     lega=Leghe(name=lega_infos['name'], path_xls=lega_infos['path_xls'], password=lega_infos['password_crypted'], millions=lega_infos['millions'], url_teams=lega_infos['url_teams'], status='opened')
     db.session.add(lega)
     db.session.commit()
@@ -66,3 +66,32 @@ def PutLegaInfo(lega_infos):
     session['lega_id'] = lega.id
     app.logger.info("Added lega {} with id {}".format(lega_infos['name'], lega.id))
 
+def _GetDownloadPlayerListURl():
+    player_url = "https://www.fantagazzetta.com/quotazioni-fantacalcio"
+    session = requests.Session()
+    app.logger.info("Get {} with requests".format(player_url))
+    freebook_req = session.get(player_url, verify=True, headers=app.config['HTTP_HEADERS'])
+    page_content = freebook_req.content
+    regexp = re.compile('(?<=\/\/www.fantagazzetta.com\/\/Servizi\/Excel.ashx)(.*)(?=")')
+    parsed = regexp.findall(page_content.decode('utf-8'))
+    download_url = "https://www.fantagazzetta.com//Servizi/Excel.ashx" + parsed[0]
+    return download_url
+
+@app.route('/fg/download_quotazioni')
+def DownloadPlayerList():
+    download_url = _GetDownloadPlayerListURl()
+    try:
+        path_xls = session['path_xls']
+    except:
+        path_xls = 'app/static/list/test'
+    if not os.path.exists(path_xls):
+        os.mkdir(path_xls)
+    lista_name = path_xls + '/lista.xlsx'
+    lista_name_url = urlopen(download_url)
+    try:
+        with open(lista_name, 'wb') as lista:
+            lista.write(lista_name_url.read())
+            lista.close()
+            app.logger.info('Scaricato file quotazioni')
+    except IOError as e:
+        app.logger.error("Error {}".format(e))

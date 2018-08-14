@@ -1,5 +1,5 @@
 from app import app,db
-from app.fg.utils import SaveTeams, PutLegaInfo, PathIDGenerator
+from app.fg.utils import SaveTeams, PutLegaInfo, PathIDGenerator, DownloadPlayerList
 from app.models import Leghe
 from app.fg.requirements import GetFantagazzettaRequirements, GetFantagazzettaRecover
 import time
@@ -29,11 +29,11 @@ def LegaInfo(form):
     session['lega_url_teams'] = lega_infos['url_teams']
     session['lega_millions'] = lega_infos['millions']
     session['lega_name'] = lega_infos['name']
+    session['path_xls'] = lega_infos['path_xls']
     return lega_infos
 
 def LegaValidationStarting(lega_infos):
     lega_already_used = Leghe.query.filter_by(url_teams=session['lega_url_teams'], status='opened' ).first()
-    print(lega_already_used)
     if lega_already_used is None:
         app.logger.info("Rendering FG-Preparation da metodo post")
         PutLegaInfo(lega_infos)
@@ -53,15 +53,23 @@ def FgRandombyRoleRecover():
             lega = Leghe.query.filter_by(url_teams=session['lega_url_teams'], status='opened' ).first()
             password_lega = lega.password
             password_inserted = form.password_recupero.data
-            print(check_password_hash(password_lega, password_inserted))
-            return redirect(url_for('play'))
+            password_ok = check_password_hash(password_lega, password_inserted)
+            if password_ok:
+                session['lega_url_teams'] = lega.url_teams
+                session['lega_id'] = lega.id
+                session['lega_name'] = lega.name
+                session['lega_millions'] = lega.millions
+                session['path_xls'] = lega.path_xls
+                return redirect(url_for('play'))
+            else:
+                return redirect(url_for('FgRandombyRoleRecover', password_ok=password_ok))
 
 @app.route('/fg/randombyrole/preparation')
 def progress():
     def main():
-        tasks = 1
+        tasks = 2
         progress = 0
-        todo = [SaveTeams]
+        todo = [SaveTeams,DownloadPlayerList]
 
         while progress < tasks:
             todo[progress]()
