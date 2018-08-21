@@ -23,7 +23,7 @@ def LegaInfo(form):
     lega_infos['url_teams'] = form.url_lega.data + '/squadre'
     lega_infos['millions'] = form.millions.data
     lega_infos['name'] = lega_infos['url_teams'].split('/')[-2]
-    lega_infos['path_xls'] =  '/list/'  + PathIDGenerator() + '-' + lega_infos['name']
+    lega_infos['path_xls'] =  'app/static/list/'  + PathIDGenerator() + '-' + lega_infos['name']
     lega_infos['password_crypted'] = generate_password_hash(lega_infos['password_lega'])
     #Put Values into session
     session['lega_url_teams'] = lega_infos['url_teams']

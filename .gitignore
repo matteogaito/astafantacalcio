@@ -6,3 +6,4 @@ app.db
 prove
 af.log*
 bin_logs
+app/static/list/

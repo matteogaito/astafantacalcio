@@ -2,11 +2,11 @@
 {% block title %}Requisiti Fantagazzetta {% endblock %}
 {% block content %}
 <div class="text-center">
-    <h1> Recupera Asta </h2>
+    <h1> Recupera Asta </h1>
     {% if request.args.get('password_ok') == "False" %}
     <h2> PASSWORD ERRATA! Riprova </h2>
     {% endif %}
-    <p> Un'asta è già in corso per la lega che hai inserito, inserisci la password per riprenderla dove hai iniziato
+    <p> Un'asta è già in corso per la lega che hai inserito, inserisci la password per riprenderla dove hai lasciato </p>
     <form action="" method="post" novalidate>
     {{ form.hidden_tag() }}
 	<p> Inserisci la password di recupero che hai impostato a inizio asta </p>
