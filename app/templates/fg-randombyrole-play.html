@@ -1,0 +1,72 @@
+{% extends "_layout.html" %}
+{% block title %}Estrazione {% endblock %}
+{% block head %}
+<script>
+  //select only checkbox
+  $(function() {
+    $("input:checkbox").on('click', function() {
+      // in the handler, 'this' refers to the box clicked on
+      var $box = $(this);
+      if ($box.is(":checked")) {
+        // the name of the box is retrieved using the .attr() method
+        // as it is assumed and expected to be immutable
+        var group = "input:checkbox[name='" + $box.attr("name") + "']";
+        // the checked state of the group/box on the other hand will change
+        // and the current value is retrieved using .prop() method
+        $(group).prop("checked", false);
+        $box.prop("checked", true);
+        $("#assegna").removeAttr("disabled");
+      } else {
+        $box.prop("checked", false);
+        $("#assegna").attr("disabled", "disabled");
+      }
+    });
+  });
+</script>
+<script>
+
+</script>
+{% endblock %}
+{% block content %}
+<div class="container-fluid text-center">
+  <h1> Estrazione {{ request.args.get('players') }} </h1>
+  <div class="container-fluid bg-primary">
+    <div class="row">
+      <div class="col-md-3 offset-md-3 pt-2 pb-2">
+        <img class="img-fluid" src="{{ player['img_url'] }}">
+      </div>
+      <div class="col-md-3 pt-2 pb-2">
+        <h2><b> {{ player['name'] }} </b></h2>
+        <h3> CLUB: {{ player['club'] }} </h3>
+        <h3> Quotazione: {{ player['quotazione'] }} </h3>
+        {% if action == "estrai" %}
+        <form> 
+          <input class="btn btn-dark btn-space" type="submit" value="Scarta" id="scarta" formaction="/fg/randombyrole/scarta"/>
+          <input class="btn btn-success" type="submit" value="Assegna" id="assegna" formaction="/fg/randombyrole/assegna"/>
+          <input type="hidden" name="players" value="{{ request.args.get('players') }}" />
+          <input type="hidden" name="index" value="{{ num }}" />
+        </form>
+        {% endif %}
+        {% if action == "assegna" %}
+        <form method="post">
+          <div class="text-left">
+          {% for team in teams %}
+          <div class="radio">
+            <label><input type="checkbox" name="team[1][]" id="team{{team.id}}" value="{{team.name}}" > {{ team.name }}</label>
+          </div>
+          {% endfor %}
+          <div class="text-center">
+            <input class="btn btn-success" type="submit" value="Assegna" id="assegna" formaction="/fg/randombyrole/confermato" disabled="disabled"/>
+            <input type="hidden" name="action" value="assegna"/>
+            <input type="hidden" name="player" value="{{ player['name'] }}"/>
+            <input type="hidden" name="players" value="{{ request.args.get('players') }}" />
+            <input type="hidden" name="index" value="{{ num }}"/>
+          </div>
+          </div>
+        </form>
+        {% endif%}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -5,7 +5,7 @@ from app import app
 
 BASEDIR = os.path.abspath(os.path.dirname(__file__))
 
-ADSENSE_CLIENT = "ca-pub-2548690881802449"
+ADSENSE_CLIENT = "ca-pub-xxxxxxxxxxx"
 
 SECRET_KEY = os.environ.get('SECRET_KEY') or 'NzE0ZTk4MjA1'
 DEBUG = True

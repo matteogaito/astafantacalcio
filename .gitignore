@@ -7,3 +7,5 @@ prove
 af.log*
 bin_logs
 app/static/list/
+config.py
+config.py*
