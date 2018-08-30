@@ -1,0 +1,139 @@
+{% extends "_layout.html" %}
+{% block bodyclass %}body-one{% endblock %}
+{% block title %}Home {% endblock %}
+{% block headertop %}
+        <div class="welcome-text-area white">
+            <div class="area-bg"></div>
+            <div class="welcome-area">
+                <div class="container">
+                    <div class="row flex-v-center">
+                        <div class="col-md-7 col-lg-7 col-sm-12 col-xs-12">
+                            <div class="welcome-mockup center">
+                                <img src="/static/img/home/marteletto.png" alt="">
+                            </div>
+                        </div>
+                        <div class="col-md-7 col-lg-7 col-sm-12 col-xs-12">
+                            <div class="welcome-text">
+                                <h1>App Asta Fantacalcio</h1>
+                                <p>L'app semplice e veloce per gestire la tua asta in modo originale<p>
+                                <div class="home-button">
+                                    <a href="#">Inizia!</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <!--END TOP AREA-->
+{% endblock %}
+
+{% block content %}
+    <!--FEATURES TOP AREA-->
+    <section class="features-top-area padding-100-50" id="features">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-lg-6 col-md-offset-2 col-lg-offset-3 col-sm-12 col-xs-12">
+                    <div class="area-title text-center wow fadeIn">
+                      <h2> Benvenuto su </h2>
+                      <h2><span> asta fantacalcio app </span></h2>
+                        <span class="icon-and-border"><i class="material-icons">phone_android</i></span>
+                        <p>Da fantallenatori per i fantallenatori.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-lg-4 col-sm-6 col-xs-12">
+                    <div class="qs-box relative mb50 center wow fadeInUp" data-wow-delay="0.2s">
+                        <div class="qs-box-icon">
+                            <i class="material-icons">lock_open</i>
+                        </div>
+                        <h3>Open Source</h3>
+                        <p>Questo sito è scritto sotto licenza GPL. Tutto il codice è libero e accessibile su github.</p> 
+                        <a href="#" class="read-more">Repository</a>
+                    </div>
+                </div>
+                <div class="col-md-4 col-lg-4 col-sm-6 col-xs-12">
+                    <div class="qs-box relative mb50 center  wow fadeInUp" data-wow-delay="0.3s">
+                        <div class="qs-box-icon">
+                            <i class="material-icons">favorite</i>
+                        </div>
+                        <h3>Fatto con amore</h3>
+                        <p>L'applicazione è nata solo per affrontare con lo strumento giusto il momento più importante dell'anno fantacalcistico, l'asta. Scrivimi se hai qualche problema o qualunque suggerimento</p>
+                        <a href="#" class="read-more">Contattami</a>
+                    </div>
+                </div>
+                <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12">
+                    <div class="qs-box relative mb50 center  wow fadeInUp" data-wow-delay="0.4s">
+                        <div class="qs-box-icon">
+                            <i class="material-icons">screen_share</i>
+                        </div>
+                        <h3>Responsive</h3>
+                        <p>Puoi utilizzare questo sito con i tuoi amici anche senza il pc, tutto è perfettamente ottimizzato per l'utilizzo da pc smartphone o tablet</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--FEATURES TOP AREA END-->
+
+    <!--APP AREA-->
+    <section class="app-area relative padding-100-50 sky-gray-bg" id="app">
+        <div class="app-area-mockup-bg"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-lg-6 col-sm-12 col-xs-12">
+                    <div class="area-title wow fadeIn">
+                      <h2>Funzionalità <span>app</app></h2>
+                        <span class="icon-and-border"><i class="material-icons">phone_android</i></span>
+                        <p>Esegui L'asta in varie modalità e dopo scaricati le liste dei giocatori aggiudicati.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-8 col-lg-8 col-sm-12 col-xs-12">
+                    <div class="row">
+                        <div class="col-md-6 col-lg-6 col-sm-6 col-xs-12">
+                            <div class="qs-box relative mb50 left  wow fadeInUp" data-wow-delay="0.2s">
+                                <div class="qs-box-icon">
+                                    <i class="material-icons">line_style</i>
+                                </div>
+                                <h3>Integrazione Fantagazzetta</h3>
+                                <p>Basta il link della tua fantalega, una password, e la tua voglia di vincere per cominciare una asta, tutti i dati delle squadre saranno recuperati automaticamente </p>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-6 col-sm-6 col-xs-12">
+                            <div class="qs-box relative mb50 left  wow fadeInUp" data-wow-delay="0.3s">
+                                <div class="qs-box-icon">
+                                    <i class="material-icons">accessibility</i>
+                                </div>
+                                <h3>Semplice</h3>
+                                <p> Nessuna login necessaria, concentrati soltanto a vincere il campionato. L'app non mira a sostituire le più famose app ma bensi a completarle </p>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-6 col-sm-6 col-xs-12">
+                            <div class="qs-box relative mb50 left  wow fadeInUp" data-wow-delay="0.2s">
+                                <div class="qs-box-icon">
+                                    <i class="material-icons">money_off</i>
+                                </div>
+                                <h3>Gratis</h3>
+                                <p>Nessun costo da pagare, nessuna newsletter da leggere, nessun coockie da accettare</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-6 col-sm-6 col-xs-12">
+                            <div class="qs-box relative mb50 left  wow fadeInUp" data-wow-delay="0.3s">
+                                <div class="qs-box-icon">
+                                    <i class="fa fa-tv"></i>
+                                </div>
+                                <h3>Interoperabile</h3>
+                                <p>Ti basta un dispositivo connesso a internet per goderti un'asta in modo originale, mai più ordine alfabetico o a chiamata</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--APP AREA END-->
+
+{% endblock %}

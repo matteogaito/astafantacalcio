@@ -1,8 +1,23 @@
 {% extends "_layout.html" %}
 {% block title %}Requisiti Fantagazzetta {% endblock %}
+{% block bodyclass %}normal-page{% endblock %}
+{% block headerclass %}single-page{% endblock %}
+{% block headertop %}
+<div class="page-barner-area relative white">
+  <div class="area-bg"></div>
+  <div class="container">
+    <div class="row flex-v-center">
+      <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+        <div class="barner-text">
+          <h1 class="text-uppercase">Recupero Asta</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
 {% block content %}
-<div class="text-center">
-    <h1> Recupera Asta </h1>
+<div class="text-center padding-30">
     {% if request.args.get('password_ok') == "False" %}
     <h2> PASSWORD ERRATA! Riprova </h2>
     {% endif %}

@@ -1,0 +1,37 @@
+{% extends "_layout.html" %}
+{% block title %}Home {% endblock %}
+{% block bodyclass %}normal-page{% endblock %}
+{% block headerclass %}single-page{% endblock %}
+{% block headertop %}
+<div class="page-barner-area relative white">
+  <div class="area-bg"></div>
+  <div class="container">
+    <div class="row flex-v-center">
+      <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+        <div class="barner-text">
+          <h1 class="text-uppercase">Our Blog</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+{% block content %}
+<div class="section blog-area single-page">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4 col-lg-4 col-sm-6 col-xs-6 padding-30">
+        <div class="single-blog mb50 wow fadeIn">
+          <div class="blog-details padding-30 border">
+            <h3><a href="/fg/randombyrole/requirements">Fantagazzetta: Estrazione giocatore di un dato ruolo</a></h3>
+            <p> Seleziona questa tipologia d'asta se vuoi estrare un giocatore casuale di un dato ruolo </p>
+            <div class="text-center single-widget mb50 tag-widget tagcloud">
+                <a href="/fg/randombyrole/requirements">Inizia!</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

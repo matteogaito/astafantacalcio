@@ -1,7 +1,24 @@
 {% extends "_layout.html" %}
 {% block title %}Requisiti Fantagazzetta {% endblock %}
+{% block bodyclass %}normal-page{% endblock %}
+{% block headerclass %}single-page{% endblock %}
+{% block headertop %}
+<div class="page-barner-area relative white">
+  <div class="area-bg"></div>
+  <div class="container">
+    <div class="row flex-v-center">
+      <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+        <div class="barner-text">
+          <h1 class="text-uppercase">Requisiti</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
 {% block content %}
-<div class="text-center">
+<div class="text-center padding-30">
     <h1>Compila tutti i campi</h1>
     <form action="" method="post" novalidate>
         {{ form.hidden_tag() }}

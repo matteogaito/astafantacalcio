@@ -1,5 +1,7 @@
 {% extends "_layout.html" %}
 {% block title %}Estrazione {% endblock %}
+{% block bodyclass %}normal-page{% endblock %}
+{% block headerclass %}single-page{% endblock %}
 {% block head %}
 <script>
   //select only checkbox
@@ -24,11 +26,26 @@
   });
 </script>
 <script>
-
 </script>
 {% endblock %}
+
+{% block headertop %}
+<div class="page-barner-area relative white">
+  <div class="area-bg"></div>
+  <div class="container">
+    <div class="row flex-v-center">
+      <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+        <div class="barner-text">
+          <h1 class="text-uppercase">Estrazione</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
 {% block content %}
-<div class="container-fluid text-center">
+<div class="container-fluid text-center padding-30">
   <h1> Estrazione {{ request.args.get('players') }} </h1>
   <div class="container-fluid bg-primary">
     <div class="row">
