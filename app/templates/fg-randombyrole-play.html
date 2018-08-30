@@ -36,7 +36,7 @@
     <div class="row flex-v-center">
       <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
         <div class="barner-text">
-          <h1 class="text-uppercase">Estrazione</h1>
+          <h1 class="text-uppercase">Estrazione {{ request.args.get('players') }}</h1>
         </div>
       </div>
     </div>
@@ -45,14 +45,15 @@
 {% endblock %}
 
 {% block content %}
-<div class="container-fluid text-center padding-30">
-  <h1> Estrazione {{ request.args.get('players') }} </h1>
-  <div class="container-fluid bg-primary">
+<div class="text-center padding-30">
+  <div class="container-fluid">
     <div class="row">
-      <div class="col-md-3 offset-md-3 pt-2 pb-2">
+      <div class="col-md-3">
+      </div>
+      <div class="col-md-3">
         <img class="img-fluid" src="{{ player['img_url'] }}">
       </div>
-      <div class="col-md-3 pt-2 pb-2">
+      <div class="col-md-3">
         <h2><b> {{ player['name'] }} </b></h2>
         <h3> CLUB: {{ player['club'] }} </h3>
         <h3> Quotazione: {{ player['quotazione'] }} </h3>
@@ -67,18 +68,18 @@
         {% if action == "assegna" %}
         <form method="post">
           <div class="text-left">
-          {% for team in teams %}
-          <div class="radio">
-            <label><input type="checkbox" name="team[1][]" id="team{{team.id}}" value="{{team.name}}" > {{ team.name }}</label>
-          </div>
-          {% endfor %}
-          <div class="text-center">
-            <input class="btn btn-success" type="submit" value="Assegna" id="assegna" formaction="/fg/randombyrole/confermato" disabled="disabled"/>
-            <input type="hidden" name="action" value="assegna"/>
-            <input type="hidden" name="player" value="{{ player['name'] }}"/>
-            <input type="hidden" name="players" value="{{ request.args.get('players') }}" />
-            <input type="hidden" name="index" value="{{ num }}"/>
-          </div>
+            {% for team in teams %}
+            <div class="radio">
+              <label><input type="checkbox" name="team[1][]" id="team{{team.id}}" value="{{team.name}}" > {{ team.name }}</label>
+            </div>
+            {% endfor %}
+            <div class="text-center">
+              <input class="btn btn-success" type="submit" value="Assegna" id="assegna" formaction="/fg/randombyrole/confermato" disabled="disabled"/>
+              <input type="hidden" name="action" value="assegna"/>
+              <input type="hidden" name="player" value="{{ player['name'] }}"/>
+              <input type="hidden" name="players" value="{{ request.args.get('players') }}" />
+              <input type="hidden" name="index" value="{{ num }}"/>
+            </div>
           </div>
         </form>
         {% endif%}
