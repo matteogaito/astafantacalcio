@@ -3,9 +3,11 @@ flask_wtf
 flask-sqlalchemy
 sqlalchemy_utils
 Flask-Session
+requests
 selenium
 pyvirtualdisplay
 celery
 redis
 passlib
 openpyxl
+gunicorn

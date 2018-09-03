@@ -83,7 +83,7 @@ def DownloadPlayerList():
     try:
         path_xls = session['path_xls']
     except:
-        path_xls = 'app/static/list/test'
+        path_xls = '/af/app/static/list/test'
     if not os.path.exists(path_xls):
         os.mkdir(path_xls)
     lista_name = path_xls + '/lista.xlsx'
