@@ -1,7 +1,11 @@
 from app import db
 
+from sqlalchemy import Column, Integer, String
+from sqlalchemy.ext.declarative import declarative_base
+
 from sqlalchemy_utils import PasswordType
 
+Base = declarative_base()
 
 class Leghe(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -17,7 +21,6 @@ class Teams(db.Model):
     name = db.Column(db.String(50))
     leghe_id = db.Column(db.Integer, db.ForeignKey('leghe.id'))
     millions = db.Column(db.Integer)
-
 
 def create_all():
     db.create_all()

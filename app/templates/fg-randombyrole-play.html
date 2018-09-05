@@ -37,6 +37,8 @@
       <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
         <div class="barner-text">
           <h1 class="text-uppercase">Estrazione {{ request.args.get('players') }}</h1>
+          <ul class="page-location">
+            <li><a href="/fg/randombyrole/play">Torna a Ruoli</a></li>
         </div>
       </div>
     </div>
@@ -73,6 +75,9 @@
               <label><input type="checkbox" name="team[1][]" id="team{{team.id}}" value="{{team.name}}" > {{ team.name }}</label>
             </div>
             {% endfor %}
+            <div class="text-center">
+              <input type="number" id="cost" name="cost" placeholder="Min: 1" min="1" />
+            </div>
             <div class="text-center">
               <input class="btn btn-success" type="submit" value="Assegna" id="assegna" formaction="/fg/randombyrole/confermato" disabled="disabled"/>
               <input type="hidden" name="action" value="assegna"/>
