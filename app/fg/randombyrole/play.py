@@ -1,5 +1,5 @@
 from app import app,db
-from flask import render_template,session,redirect,url_for,request
+from flask import render_template,session,redirect,url_for,request, send_file
 from openpyxl import load_workbook, Workbook
 import os
 import requests
@@ -185,8 +185,11 @@ class Estrazione():
     def scarta(self, role, index):
         self._removePlayerFromList(role, index, 1)
 
+    def getTeamFile(self, team):
+        return self.path_lega + "/" + team.replace(" ", "_").replace("'", "") + ".xlsx"
+
     def assignToTeam(self, team, player, index, players, cost):
-        team_xls = self.path_lega + "/" + team.replace(" ", "_").replace("'", "") + ".xlsx"
+        team_xls = self.getTeamFile(team)
         if not os.path.exists(team_xls):
             app.logger.info("File {} non esistente, lo creo".format(team_xls))
             wb = Workbook()
@@ -234,7 +237,9 @@ class Estrazione():
 
 @app.route('/fg/randombyrole/play')
 def play():
-    return render_template('fg-randombyrole.html')
+    teams = Teams.query.filter_by(leghe_id=session['lega_id'])
+
+    return render_template('fg-randombyrole.html', teams = teams)
 
 @app.route('/fg/randombyrole/estrai')
 def estrai():
@@ -284,6 +289,19 @@ def scarta():
 
     return redirect(Estrazione(tipo='randombyrole').incorso())
 
+@app.route('/fg/randombyrole/downloadlista')
+def downloadlist():
+    try:
+        teamid = request.args['teamid']
+    except:
+        return redirect(url_for('error', missing_role="teamid"))
+
+    team = Teams.query.filter_by( id = teamid )
+    team_list = Estrazione(tipo='randombyrole').getTeamFile(team[0].name)
+    filename = team_list.split('/')[-1]
+    print(filename)
+
+    return send_file(team_list, as_attachment=True)
 
 @app.route('/fg/randombyrole/confermato', methods=["POST"])
 def confermato():
