@@ -1,9 +1,30 @@
 {% extends "_layout.html" %}
 {% block title %}Errore {% endblock %}
+{% block bodyclass %}normal-page{% endblock %}
+{% block headerclass %}single-page{% endblock %}
+
+{% block headertop %}
+<div class="page-barner-area relative white">
+  <div class="area-bg"></div>
+  <div class="container">
+    <div class="row flex-v-center">
+      <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+        <div class="barner-text">
+          <h1 class="text-uppercase"> Errore </h1>
+          <ul class="page-location">
+            <li><a href="/fg/randombyrole/play">Torna a Ruoli</a></li>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
 {% block content %}
-<div class="text-center">
-    <h1> Errore</h1>
+<div class="text-center padding-30">
+  <div class="container-fluid">
     <p> Qualcosa è andato storto </p>
     <p> Ricomincia dalla home, se il problema persiste scrivimi dalla sezione contatti </p>
+  </div>
 </div>
 {% endblock %}

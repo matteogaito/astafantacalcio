@@ -213,12 +213,10 @@ class Estrazione():
         ws_role = wb[sheet]
 
         ws_rows = list(ws_role.rows)
-        ws_last_row = len(ws_rows) -1
+        ws_last_row_index = len(ws_rows) -1
 
-        if ws_rows[ws_last_row] is None:
-            position = ws_last_row
-        else:
-            position = ws_last_row + 1
+        if ws_rows[ws_last_row_index] is not None:
+            position = ws_last_row_index + 2
 
         # Salvo su file team
         ws_role.cell(column=1, row=position, value=player['name'])
