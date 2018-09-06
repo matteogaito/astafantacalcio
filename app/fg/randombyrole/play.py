@@ -1,6 +1,7 @@
 from app import app,db
 from flask import render_template,session,redirect,url_for,request, send_file
 from openpyxl import load_workbook, Workbook
+from app.fg.requirements import AccettaScarti
 import os
 import requests
 import random
@@ -101,7 +102,13 @@ class Estrazione():
         if ('quale' in keyword_parameters):
             session.modified = True
             quale = keyword_parameters['quale']
-            session['estrazione_in_corso'] = url_for('estrai', players=quale, _external = True)
+
+            if 'include_excluded' in keyword_parameters:
+                include_excluded=1
+                session['estrazione_in_corso'] = url_for('estrai', players=quale, include_excluded = include_excluded, _external = True)
+            else:
+                session['estrazione_in_corso'] = url_for('estrai', players=quale, _external = True)
+
             app.logger.info("Sovrascrivo estrazione in corso")
         else:
             app.logger.info("Nessun parametro quale")
@@ -123,15 +130,25 @@ class Estrazione():
 
         return player_info, player_id
 
-    def getRandomPlayer(self, role):
+    def getRandomPlayer(self, role, include_excluded):
         self.role = role
         self._populateRole(role)
         players, metadata = self._getRoleModel(role)
-        s = select([players]).where(players.c.stato == 0).order_by(func.random()).limit(1)
+        if include_excluded == False:
+            app.logger.info("Senza giocatori scartati")
+            s = select([players]).where(players.c.stato == 0).order_by(func.random()).limit(1)
+        else:
+            app.logger.info("Con giocatori scartati")
+            s = select([players]).where(players.c.stato < 2).order_by(func.random()).limit(1)
+
+        player = False
         result = self.con_legadb.execute(s)
         for row in result:
             player = row
             print(player.name)
+
+        if player == False:
+            return False, 0
 
         player_info, player_id = self.conver_row_to_player_info(player)
         return player_info, player_id
@@ -246,10 +263,22 @@ def estrai():
     except:
         return redirect(url_for('error', missing_role=True, _external=True ))
 
-    Estrazione(tipo='randombyrole').incorso(quale=players)
+    try:
+        include_excluded = request.args['include_excluded']
+        if include_excluded == 1:
+            include_excluded = True
+    except:
+        include_excluded = False
+
+    Estrazione(tipo='randombyrole').incorso(quale=players, include_excluded = include_excluded)
     app.logger.info("Estrazione {}".format(players))
 
-    player, index = Estrazione(tipo='randombyrole').getRandomPlayer(players)
+    player, index = Estrazione(tipo='randombyrole').getRandomPlayer(players, include_excluded)
+
+    if player == False:
+        form = AccettaScarti(request.form)
+        return render_template('fg-randombyrole-finish.html', players = players, form=form )
+
     app.logger.info("Estratto {} indice".format(player['name'], index))
 
     return render_template('fg-randombyrole-play.html', player = player, num=index, action = "estrai")

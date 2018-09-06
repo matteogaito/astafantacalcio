@@ -12,3 +12,6 @@ class GetFantagazzettaRequirements(FlaskForm):
 class GetFantagazzettaRecover(FlaskForm):
     password_recupero = StringField('Password recupero Asta', validators=[DataRequired()])
     submit = SubmitField('Recupera')
+
+class AccettaScarti(FlaskForm):
+    submit = SubmitField('SI')
