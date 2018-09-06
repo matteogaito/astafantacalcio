@@ -94,14 +94,14 @@ class Estrazione():
 
     def _removePlayerFromList(self, role, index, stato):
         players, metadata = self._getRoleModel(role)
-        stmt = update(players).where(players.c.id==5).values(stato=stato)
+        stmt = update(players).where(players.c.id==index).values(stato=stato)
         self.con_legadb.execute(stmt)
 
     def incorso(self, *positional_parameters, **keyword_parameters):
         if ('quale' in keyword_parameters):
             session.modified = True
             quale = keyword_parameters['quale']
-            session['estrazione_in_corso'] = url_for('estrai', players=quale)
+            session['estrazione_in_corso'] = url_for('estrai', players=quale, _external = True)
             app.logger.info("Sovrascrivo estrazione in corso")
         else:
             app.logger.info("Nessun parametro quale")
@@ -244,7 +244,7 @@ def estrai():
     try:
         players = request.args['players']
     except:
-        return redirect(url_for('error', missing_role=True))
+        return redirect(url_for('error', missing_role=True, _external=True ))
 
     Estrazione(tipo='randombyrole').incorso(quale=players)
     app.logger.info("Estrazione {}".format(players))
@@ -259,11 +259,11 @@ def assegna():
     try:
         players = request.args['players']
     except:
-        return redirect(url_for('error', missing_param="players"))
+        return redirect(url_for('error', missing_param="players", _external=True))
     try:
         index = int(request.args['index'])
     except:
-        return redirect(url_for('error', missing_param="player_id"))
+        return redirect(url_for('error', missing_param="player_id", _external=True))
 
     teams = Teams.query.filter_by(leghe_id=session['lega_id'])
 
@@ -276,12 +276,12 @@ def scarta():
     try:
         players = request.args['players']
     except:
-        return redirect(url_for('error', missing_param="role"))
+        return redirect(url_for('error', missing_param="role", _external=True))
 
     try:
         index = int(request.args['index'])
     except:
-        return redirect(url_for('error', missing_param="player_id"))
+        return redirect(url_for('error', missing_param="player_id", _external=True))
 
     Estrazione(tipo='randombyrole').scarta(players, index)
 
@@ -292,7 +292,7 @@ def downloadlist():
     try:
         teamid = request.args['teamid']
     except:
-        return redirect(url_for('error', missing_role="teamid"))
+        return redirect(url_for('error', missing_role="teamid", _external=True))
 
     team = Teams.query.filter_by( id = teamid )
     team_list = Estrazione(tipo='randombyrole').getTeamFile(team[0].name)
@@ -308,17 +308,17 @@ def confermato():
     try:
         players = request.form['players']
     except:
-        return redirect(url_for('error', missing_param="role"))
+        return redirect(url_for('error', missing_param="role", _external=True))
 
     try:
         index = int(request.form['index'])
     except:
-        return redirect(url_for('error', missing_param="player_id"))
+        return redirect(url_for('error', missing_param="player_id", _external=True))
 
     try:
         cost = int(request.form['cost'])
     except:
-        return redirect(url_for('error', missing_param="cost"))
+        return redirect(url_for('error', missing_param="cost", _external=True))
 
     player, index = Estrazione(tipo='randombyrole').getPlayerbyIndex(players, index)
 

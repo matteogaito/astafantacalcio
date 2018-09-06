@@ -9,3 +9,4 @@ bin_logs
 app/static/list/
 config.py
 config.py*
+*.db

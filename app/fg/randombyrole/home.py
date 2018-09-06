@@ -40,7 +40,7 @@ def LegaValidationStarting(lega_infos):
         return render_template('fg-preparation.html')
     else:
         app.logger.info("Lega already present and opened")
-        return redirect(url_for('FgRandombyRoleRecover'))
+        return redirect(url_for('FgRandombyRoleRecover', _external=True))
 
 @app.route('/fg/randombyrole/recover', methods=['GET', 'POST'])
 def FgRandombyRoleRecover():
@@ -60,9 +60,9 @@ def FgRandombyRoleRecover():
                 session['lega_name'] = lega.name
                 session['lega_millions'] = lega.millions
                 session['path_xls'] = lega.path_xls
-                return redirect(url_for('play'))
+                return redirect(url_for('play', _external=True))
             else:
-                return redirect(url_for('FgRandombyRoleRecover', password_ok=password_ok))
+                return redirect(url_for('FgRandombyRoleRecover', password_ok=password_ok, _external=True))
 
 @app.route('/fg/randombyrole/preparation')
 def progress():
