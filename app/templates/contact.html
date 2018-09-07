@@ -1,0 +1,49 @@
+{% extends "_layout.html" %}
+{% block title %}Contatti {% endblock %}
+{% block bodyclass %}normal-page{% endblock %}
+{% block headerclass %}single-page{% endblock %}
+{% block headertop %}
+<div class="page-barner-area relative white">
+  <div class="area-bg"></div>
+  <div class="container">
+    <div class="row flex-v-center">
+      <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+        <div class="barner-text">
+          <h1 class="text-uppercase">Contatti</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="text-center padding-30">
+  <form action="{{ url_for('contact') }}" method=post>
+    {{ form.hidden_tag() }}
+
+    <p>
+    {{ form.name.label }} 
+    {{ form.name }}
+    </p>
+
+    <p>
+    {{ form.email.label }}
+    {{ form.email }}
+    </p>
+
+    <p>
+    {{ form.subject.label }}
+    {{ form.subject }}
+    </p>
+
+    <p>
+    {{ form.message.label }}
+    {{ form.message }}
+    </p>
+
+    {{ form.recaptcha }}
+    {{ form.submit }}
+  </form>
+</div>
+{% endblock %}
