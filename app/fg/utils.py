@@ -2,7 +2,7 @@
 
 from app import app,db
 import crypt,string,random
-import requests,re,os
+import requests,re,os,time
 from urllib.request import urlopen
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
@@ -23,12 +23,24 @@ def GetTeamsbyUrl(url_teams):
     app.logger.info("Opened Display for downloading teams by {}".format(url_teams))
 
     browser = webdriver.Chrome('/af/bin/chromedriver', chrome_options=chrome_options,  service_args=['--verbose', '--log-path=/af/bin/bin_logs/chromedriver.log'])
+    browser.set_window_size(1280, 2048)
+    browser.maximize_window()
     browser.get(url_teams)
     wait = WebDriverWait(browser, 10)
     app.logger.info("Page downloaded")
+
+    # Remove cookie
+    confirm_cookie=browser.find_element_by_xpath("/html/body/div[1]/div/div/div[2]/button[2]")
+    confirm_cookie.click()
+    time.sleep(3)
+
+    app.logger.info("Clicked cookie")
+
+    main_content = browser.find_element_by_class_name('main-content')
     team_class="team-description"
-    div_teams = browser.find_elements_by_class_name(team_class)
+    div_teams = main_content.find_elements_by_class_name(team_class)
     for team in div_teams:
+        print(team.text)
         team_name = team.find_element_by_css_selector('h5')
         app.logger.info("Found team {}".format(team_name.text))
         teams.append(team_name.text)
@@ -67,14 +79,14 @@ def PutLegaInfo(lega_infos):
     app.logger.info("Added lega {} with id {}".format(lega_infos['name'], lega.id))
 
 def _GetDownloadPlayerListURl():
-    player_url = "https://www.fantagazzetta.com/quotazioni-fantacalcio"
+    player_url = "https://www.fantacalcio.it/quotazioni-fantacalcio"
     session = requests.Session()
     app.logger.info("Get {} with requests".format(player_url))
     freebook_req = session.get(player_url, verify=True, headers=app.config['HTTP_HEADERS'])
     page_content = freebook_req.content
-    regexp = re.compile('(?<=\/\/www.fantagazzetta.com\/\/Servizi\/Excel.ashx)(.*)(?=")')
+    regexp = re.compile('(?<=\/\/www.fantacalcio.it\/\/Servizi\/Excel.ashx)(.*)(?=")')
     parsed = regexp.findall(page_content.decode('utf-8'))
-    download_url = "https://www.fantagazzetta.com//Servizi/Excel.ashx" + parsed[0]
+    download_url = "https://www.fantacalcio.it//Servizi/Excel.ashx" + parsed[0]
     return download_url
 
 @app.route('/fg/download_quotazioni')

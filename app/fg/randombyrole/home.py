@@ -20,7 +20,7 @@ def FgRandombyRoleRequirements():
 def LegaInfo(form):
     lega_infos = {}
     lega_infos['password_lega'] = form.password_lega.data
-    lega_infos['url_teams'] = form.url_lega.data + '/squadre'
+    lega_infos['url_teams'] = form.url_lega.data + '/squadre?all=true'
     lega_infos['millions'] = form.millions.data
     lega_infos['name'] = lega_infos['url_teams'].split('/')[-2]
     lega_infos['path_xls'] =  '/af/app/static/list/'  + PathIDGenerator() + '-' + lega_infos['name']

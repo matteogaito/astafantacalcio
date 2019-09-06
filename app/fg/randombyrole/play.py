@@ -103,13 +103,14 @@ class Estrazione():
             session.modified = True
             quale = keyword_parameters['quale']
 
-            if 'include_excluded' in keyword_parameters:
-                include_excluded=1
-                session['estrazione_in_corso'] = url_for('estrai', players=quale, include_excluded = include_excluded, _external = True)
+            if not 'include_excluded' in keyword_parameters:
+                include_excluded=0
             else:
-                session['estrazione_in_corso'] = url_for('estrai', players=quale, _external = True)
+                include_excluded=keyword_parameters['include_excluded']
 
-            app.logger.info("Sovrascrivo estrazione in corso")
+            session['estrazione_in_corso'] = url_for('estrai', players=quale, include_excluded = include_excluded, _external = True)
+
+            app.logger.info("Estrazione in corso: {}".format(session['estrazione_in_corso']))
         else:
             app.logger.info("Nessun parametro quale")
             try:
@@ -134,7 +135,8 @@ class Estrazione():
         self.role = role
         self._populateRole(role)
         players, metadata = self._getRoleModel(role)
-        if include_excluded == False:
+        app.logger.info("include_excluded: {}".format(include_excluded))
+        if int(include_excluded) == 0:
             app.logger.info("Senza giocatori scartati")
             s = select([players]).where(players.c.stato == 0).order_by(func.random()).limit(1)
         else:
@@ -168,7 +170,7 @@ class Estrazione():
         return player_info, player_id
 
     def _campioncinoImageChecker(self, nameurl):
-        campioncino_url = "https://content.fantagazzetta.com/web/campioncini/card/"
+        campioncino_url = "https://content.fantacalcio.it/web/campioncini/card/"
         complete_url = campioncino_url + nameurl + '.jpg'
         session = requests.Session()
         richiesta = session.get(complete_url, verify=True, headers=app.config['HTTP_HEADERS'])
@@ -265,10 +267,8 @@ def estrai():
 
     try:
         include_excluded = request.args['include_excluded']
-        if include_excluded == 1:
-            include_excluded = True
     except:
-        include_excluded = False
+        include_excluded = 0
 
     Estrazione(tipo='randombyrole').incorso(quale=players, include_excluded = include_excluded)
     app.logger.info("Estrazione {}".format(players))
